@@ -28,9 +28,12 @@ public class TambahProduk extends javax.swing.JDialog {
     public TambahProduk(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         
         viewCategory("kategori_produk", cmbKategoriProduk);
         viewCategory("supplier", cmbSupplier);
+//        generateCode();
+        updateInfo(false, "");
     }
 
     /**
@@ -62,7 +65,8 @@ public class TambahProduk extends javax.swing.JDialog {
         cmbSupplier = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        lblInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,8 +133,18 @@ public class TambahProduk extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("Batal\n");
+        jButton4.setText("Generate");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        lblInfo.setBackground(new java.awt.Color(204, 255, 204));
+        lblInfo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblInfo.setForeground(new java.awt.Color(255, 51, 51));
+        lblInfo.setText("jLabel10");
+        lblInfo.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +165,10 @@ public class TambahProduk extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtKodeProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtKodeProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)
+                                .addGap(7, 7, 7))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -181,9 +198,9 @@ public class TambahProduk extends javax.swing.JDialog {
                 .addGap(37, 37, 37))
             .addComponent(jSeparator1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
+                .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(21, 21, 21))
         );
@@ -195,7 +212,8 @@ public class TambahProduk extends javax.swing.JDialog {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtKodeProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKodeProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -229,12 +247,10 @@ public class TambahProduk extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                        .addGap(6, 6, 6)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,17 +259,12 @@ public class TambahProduk extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFileChooser jfc = new JFileChooser();
-        jfc.setDialogTitle("Pilih Gambar Produk");
-                
-                // Show the dialog and get the user's selection
-                int userSelection = jfc.showOpenDialog(this);
-                
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    File fileToOpen = jfc.getSelectedFile();
-                    JOptionPane.showMessageDialog(this, "Selected file: " + fileToOpen.getAbsolutePath());
-                } else {
-                    JOptionPane.showMessageDialog(this, "Open command canceled");
-                }
+        jfc.setDialogTitle("Pilih Gambar"); 
+        int x = jfc.showOpenDialog(this);
+        if(x == JFileChooser.APPROVE_OPTION){
+            File f = jfc.getSelectedFile();
+            txtGambarProduk.setText(f.getAbsolutePath()); 
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -330,6 +341,7 @@ public class TambahProduk extends javax.swing.JDialog {
                     function.logActivity("\n["+tanggal+"] Tambah data produk berhasil "); 
 //                    JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
                     jButton2.requestFocus();
+        Profil.viewDataProduct("");
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Error: Harga jual, harga beli, dan stok harus berupa angka");
     } catch (Exception e) {
@@ -349,6 +361,28 @@ public class TambahProduk extends javax.swing.JDialog {
     private void cmbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSupplierActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbSupplierActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        long R10 = (long) (Math.random() * 9000000000L) + 1000000000L;
+        txtKodeProduk.setText("" + R10);
+
+        
+        try {
+            Connection K = Config.configDB();
+            Statement S = K.createStatement();
+            String Q = "SELECT product_code FROM products WHERE product_code='"+R10+"'";
+            ResultSet R = S.executeQuery(Q);
+            boolean ada = R.next();
+            if(ada){
+                updateInfo(true,"Kode Sudah Ada"); 
+            }else {
+                updateInfo(false, "");
+            }
+        } catch (Exception e) {
+            
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,7 +431,7 @@ public class TambahProduk extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbSupplier;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -408,6 +442,7 @@ public class TambahProduk extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblInfo;
     private javax.swing.JTextField txtGambarProduk;
     private javax.swing.JTextField txtHargaBeli;
     private javax.swing.JTextField txtHargaJual;
@@ -434,5 +469,52 @@ private void viewCategory(String tableName, JComboBox cmb){
     }
 }
 
+    private void generateCode() {
+        try {
+            Connection K = Config.configDB();
+            String Q = "SELECT kode_produk FROM produk ORDER BY id_produk DESC LIMIT 1;";
+            Statement ST = K.createStatement();
+            ResultSet R = ST.executeQuery(Q);
+            String kode = "";
+            while (R.next()) {                
+                kode = R.getString("kode_produk");
+            }
+            
+            int P = Integer.parseInt(kode.substring(1));
+            String newCode = "";
+            if(P < 10){
+                newCode = "P0000"+(P+1);
+            }else if(P>9 && P < 100){
+                newCode = "P000"+(P+1);
+            }else if(P>99 && P < 1000){
+                newCode = "P00"+(P+1);
+            }else if(P>999 && P < 10000){
+                newCode = "P0"+(P+1);
+            }else if(P>9999 && P < 10000){
+                newCode = "P"+(P+1);
+            }
+            txtKodeProduk.setText(newCode); 
+            
+        } catch (Exception e) {
+        }
+    
+    }
 
-}
+    private void updateInfo(boolean b, String text) {
+        if (b) {
+            lblInfo.setBackground(new java.awt.Color(153, 255, 153));
+            lblInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+            lblInfo.setForeground(new java.awt.Color(255, 51, 51));
+            lblInfo.setText(text);
+            lblInfo.setOpaque(true);
+        } else {
+            lblInfo.setBackground(new java.awt.Color(242, 242, 242));
+            //lblInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+            //lblInfo.setForeground(new java.awt.Color(255, 51, 51));
+            lblInfo.setText(text);
+            lblInfo.setOpaque(false);
+        }
+    }
+    }
+
+

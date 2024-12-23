@@ -24,6 +24,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     login(userprofil up) {
@@ -274,14 +275,26 @@ public class login extends javax.swing.JFrame {
             if (rs.next()) {
                 if(txtusername.getText().equals(rs.getString("username"))&&txtpassword.getText().equals(rs.getString("password"))){
                     JOptionPane.showMessageDialog(null, "berhasil login");                    
-                    Profil P = new Profil();
+//                    Profil P = new Profil();
+//                    this.setVisible(false); 
+//                    P.setVisible(true); 
+//                    P.setExtendedState(Frame.MAXIMIZED_BOTH);
+                    if(lv.equals("kasir")){
                     this.setVisible(false); 
-                    P.setVisible(true); 
-                    P.setExtendedState(Frame.MAXIMIZED_BOTH);
+                    Kasir K = new Kasir();
+                    K.setVisible(true); 
+                    K.setExtendedState(Frame.MAXIMIZED_BOTH);
+                }else if(lv.equals("admin")){
+                    this.setVisible(false); 
+                    Profil A = new Profil(up);
+                    A.setVisible(true); 
+                    A.setExtendedState(Frame.MAXIMIZED_BOTH);
+                }
                     
                 }
             }else {
-                JOptionPane.showMessageDialog(null, "username atau password salah");
+                JOptionPane.showMessageDialog(null, "Username atau password salah", "Error", JOptionPane.ERROR_MESSAGE);
+                System.err.println("error : username tidak ditemukan");
             }
             //format tanggal
                     Date d = new Date();
