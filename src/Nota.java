@@ -9,10 +9,15 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Nota extends javax.swing.JDialog {
+    private String totalBelanja = "0";
+    private String uangPembayaran = "0";
+    private String uangKembali = "0";
 
     private DefaultTableModel MODEL;
 
@@ -62,9 +67,9 @@ public class Nota extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setBackground(new java.awt.Color(0, 255, 204));
-        jLabel1.setFont(new java.awt.Font("Segoe Script", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe Script", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("BIR STORE");
         jLabel1.setOpaque(true);
 
@@ -78,12 +83,12 @@ public class Nota extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,4 +293,17 @@ public DefaultTableModel getMODEL() {
     public void setMODEL(DefaultTableModel MODEL) {
         this.MODEL = MODEL;
     }
+
+    void setNotaData(JLabel totalharga, JTextField txtuangbayar, JLabel uangkembali) {
+    // Ambil nilai dari komponen yang dikirim
+    this.totalBelanja = totalharga.getText();
+    this.uangPembayaran = txtuangbayar.getText();
+    this.uangKembali = uangkembali.getText();
+
+    // Perbarui teks pada label di dialog nota
+    jLabel5.setText("Rp. " + totalBelanja);      // Label total belanja
+    jLabel7.setText("Rp. " + uangPembayaran);   // Label uang pembayaran
+    jLabel9.setText("Rp. " + uangKembali);      // Label uang kembali
+}
+
 }
